@@ -1,6 +1,6 @@
 #include "board.h"
 
-Board::Board()
+Board::Board(InputHandler& handler)
 {
     endStage = false;
     switch1 = false;
@@ -253,5 +253,5 @@ void Board::restart()
     stage_progress = 0;
     waveTimer = 0;
     waitingTimer = 0;
-    player = new Player();
+    player = new Player(inputHandler);
 }

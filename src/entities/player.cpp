@@ -9,6 +9,30 @@ Player::Player()
     this->shooting = false;
     this->type = 'P';
 }
+
+void Player::onInputEvent(InputEvent event)
+{
+
+    // Stworz wartosci bool dla poruszania się, tutaj je ustawiaj, a do poruszania się zrób osobną funkcje, zeby tez uwzglednic przekatne
+    if ((event == InputEvent::A_Pressed) && (event == InputEvent::D_Pressed))
+        this->xSpeed = 0;
+    else if (event == InputEvent::A_Pressed)
+        this->xSpeed = -SPEED;
+    else if (event == InputEvent::D_Pressed)
+        this->xSpeed = SPEED;
+    else if (event == InputEvent::D_Released || event == InputEvent::A_Released)
+        this->xSpeed = 0;
+
+    if ((event == InputEvent::W_Pressed) && (event == InputEvent::S_Pressed))
+        this->ySpeed = 0;
+    else if (event == InputEvent::W_Pressed)
+        this->ySpeed = -SPEED;
+    else if (event == InputEvent::S_Pressed)
+        this->ySpeed = SPEED;
+    else if (event == InputEvent::S_Released || event == InputEvent::W_Released)
+        this->ySpeed = 0;
+}
+
 bool Player::isDead()
 {
     if (this->cooldown)
@@ -16,28 +40,7 @@ bool Player::isDead()
     else
         return false;
 }
-void Player::moveX(bool A, bool D)
-{
-    if (A)
-        this->xSpeed = -SPEED;
-    else if (D)
-        this->xSpeed = SPEED;
-    else
-        this->xSpeed = 0;
-    if (A && D)
-        this->xSpeed = 0;
-}
-void Player::moveY(bool W, bool S)
-{
-    if (W)
-        this->ySpeed = -SPEED;
-    else if (S)
-        this->ySpeed = SPEED;
-    else
-        this->ySpeed = 0;
-    if (W && S)
-        this->ySpeed = 0;
-}
+
 void Player::process(float dt)
 {
     static float time1 = 0;

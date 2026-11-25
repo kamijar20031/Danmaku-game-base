@@ -1,12 +1,8 @@
 #include "gameManager.h"
-Game::Game(sf::RenderWindow* window)
+Game::Game(sf::RenderWindow* window) : handler{}
 {
     gameMode= 0;
     windowPointer = window;
-    W = false;
-    A = false;
-    S = false;
-    D = false;
     selected = false;
     unselected = true;
     selection = 0;
@@ -14,34 +10,10 @@ Game::Game(sf::RenderWindow* window)
     releasedPause = false;
     stop = false;
 }
-void Game::processBasicEvents(sf::Event* event)
-{
-    if (event->type == sf::Event::Closed || (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)))
-        windowPointer->close();
-    if (sf::Event::KeyPressed)
-    {
-        if (event->key.code == sf::Keyboard::W)
-            W = true;
-        if (event->key.code == sf::Keyboard::S)
-            S = true;
-        if (event->key.code == sf::Keyboard::A)
-            A = true;
-        if (event->key.code == sf::Keyboard::D)
-            D = true;
-    }
-    if (!(sf::Keyboard::isKeyPressed(sf::Keyboard::W)))
-        W = false;
-    if (!(sf::Keyboard::isKeyPressed(sf::Keyboard::S)))
-        S = false;
-    if (!(sf::Keyboard::isKeyPressed(sf::Keyboard::A)))
-        A = false;
-    if (!(sf::Keyboard::isKeyPressed(sf::Keyboard::D)))
-        D = false;
-}
 
-void Game::processInGameEvents(sf::Event* event)
+void Game::processInGameEvents(const sf::Event& event)
 {
-    processBasicEvents(event);
+    handler.process(event);
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
         pressedPause = true;
@@ -49,7 +21,7 @@ void Game::processInGameEvents(sf::Event* event)
         releasedPause = true;
     if (sf::Event::KeyPressed)
     {
-        if (event->key.code == sf::Keyboard::Space)
+        if (event.key.code == sf::Keyboard::Space)
         {
             if (!gameBoard.checkPause() && !gameBoard.isEndOfStage())
                 gameBoard.player->shooting = true;
@@ -94,11 +66,11 @@ void Game::drawGame()
     windowPointer->draw(HUDTextures.Lives);
 }
 
-void Game::mainGameProcess(double dt, sf::Event* event)
+void Game::mainGameProcess(double dt, sf::Event& event)
 {
 
     gameBoard.gameProcess(dt, gameMode);
-    while (windowPointer->pollEvent(*event))
+    while (windowPointer->pollEvent(event))
     {
         processInGameEvents(event);
     }
@@ -117,38 +89,34 @@ void Game::mainGameProcess(double dt, sf::Event* event)
             SoundManager::playSound("se_cancel00.wav");
         stop = true;
     }
-    gameBoard.player->moveX(A, D);
-    gameBoard.player->moveY(W, S);
 
     drawGame();
 }
 
-void Game::mainMenuProcess(double dt, sf::Event* event)
+void Game::mainMenuProcess(double dt, sf::Event& event)
 {
-    while (windowPointer->pollEvent(*event))
+    while (windowPointer->pollEvent(event))
     {
-        processBasicEvents(event);
-
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
         {
             SoundManager::playSound("se_ok00.wav");
             gameMode = 1 + selection;
         }
     }
-    if (A || S)
-    {
-        selection--;
-        A = false;
-        S = false;
-        SoundManager::playSound("se_select00.wav");
-    }
-    else if (D || W)
-    {
-        selection++;
-        D = false;
-        W = false;
-        SoundManager::playSound("se_select00.wav");
-    }
+    // if (A || S)
+    // {
+    //     selection--;
+    //     A = false;
+    //     S = false;
+    //     SoundManager::playSound("se_select00.wav");
+    // }
+    // else if (D || W)
+    // {
+    //     selection++;
+    //     D = false;
+    //     W = false;
+    //     SoundManager::playSound("se_select00.wav");
+    // }
     if (selection < 0)
         selection = HUDTextures.Options.size() - 1;
     else if (selection >= HUDTextures.Options.size())
@@ -226,20 +194,20 @@ void Game::processPauseScreen()
         }
         selected = false;
     }
-    if (D || S)
-    {
-        choice++;
-        D = false;
-        S = false;
-        SoundManager::playSound("se_select00.wav");
-    }
-    else if (A || W)
-    {
-        choice--;
-        A = false;
-        W = false;
-        SoundManager::playSound("se_select00.wav");
-    }
+    // if (D || S)
+    // {
+    //     choice++;
+    //     D = false;
+    //     S = false;
+    //     SoundManager::playSound("se_select00.wav");
+    // }
+    // else if (A || W)
+    // {
+    //     choice--;
+    //     A = false;
+    //     W = false;
+    //     SoundManager::playSound("se_select00.wav");
+    // }
     if (choice < 0)
         choice = 2;
     else if (choice >= 3)
@@ -289,20 +257,20 @@ void Game::processGameOver()
         }
         selected = false;
     }
-    if (D || S)
-    {
-        choice++;
-        D = false;
-        S = false;
-        SoundManager::playSound("se_select00.wav");
-    }
-    else if (A || W)
-    {
-        choice--;
-        A = false;
-        W = false;
-        SoundManager::playSound("se_select00.wav");
-    }
+    // if (D || S)
+    // {
+    //     choice++;
+    //     D = false;
+    //     S = false;
+    //     SoundManager::playSound("se_select00.wav");
+    // }
+    // else if (A || W)
+    // {
+    //     choice--;
+    //     A = false;
+    //     W = false;
+    //     SoundManager::playSound("se_select00.wav");
+    // }
     if (choice < 0)
         choice = 1;
     else if (choice >= 2)
@@ -326,13 +294,13 @@ void Game::process()
     if (gameMode != 0)
     {
         // Actual Game
-        mainGameProcess(dt, &event);
+        mainGameProcess(dt, event);
 
     }
     else
     {
         // Main Menu
-        mainMenuProcess(dt, &event);
+        mainMenuProcess(dt, event);
 
     }
     if (gameBoard.isEndOfStage())

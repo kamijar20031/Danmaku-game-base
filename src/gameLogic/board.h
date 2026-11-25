@@ -5,13 +5,11 @@
 #include "spriteManager.h"
 #include "enemiesOnBoard.h"
 #include "hud.h"
-
 extern SpriteManager sprites;
 extern HUDManager HUDTextures;
 
 class Board
 {
-
     bool pause;
     float waveTimer;
     float waitingTimer;

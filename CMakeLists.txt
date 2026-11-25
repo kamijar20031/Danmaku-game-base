@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 project(danmaku)
 set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CSS_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 include(FetchContent)
 set(SFML_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
