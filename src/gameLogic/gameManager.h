@@ -1,28 +1,20 @@
 #pragma once
 #include "constants.h"
 #include "board.h"
-class Game
+#include "stateManager.h"
+class Game : IInputObserver
 {
-	int gameMode;
-	sf::RenderWindow* windowPointer;
+	sf::RenderWindow& window;
     InputHandler handler;
-	Board gameBoard;
-    bool selected;
-    bool unselected;
-    int selection;
-    bool pressedPause;
-    bool releasedPause;
-    bool stop;
-
+    StateRequestHandler requestHandler;
+    GameStateManager manager;
     sf::Clock clock;
     sf::Time time;
 public:
-    Game(sf::RenderWindow* window);
-    void processBasicEvents(const sf::Event& event);
-    void processInGameEvents(const sf::Event& event);
-    void drawGame();
-    void mainGameProcess(double dt, sf::Event& event);
+    Game(sf::RenderWindow& window);
+    ~Game();
     void mainMenuProcess(double dt, sf::Event& event);
+    void onInputEvent(InputEvent e);
     void toNewStage();
     void processPauseScreen();
     void processGameOver();

@@ -25,6 +25,10 @@ target_include_directories(danmaku PRIVATE
     ${CMAKE_SOURCE_DIR}/src/entities
     ${CMAKE_SOURCE_DIR}/src/entityHandlers
     ${CMAKE_SOURCE_DIR}/src/gameLogic
+    ${CMAKE_SOURCE_DIR}/src/gameLogic/inputs
+    ${CMAKE_SOURCE_DIR}/src/gameLogic/state
+    ${CMAKE_SOURCE_DIR}/src/gameLogic/state/helpers
+    ${CMAKE_SOURCE_DIR}/src/gameLogic/state/actualStates
 )
 
 target_link_libraries(danmaku

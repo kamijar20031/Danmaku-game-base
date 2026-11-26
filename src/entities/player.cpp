@@ -31,6 +31,11 @@ void Player::onInputEvent(InputEvent event)
         this->ySpeed = SPEED;
     else if (event == InputEvent::S_Released || event == InputEvent::W_Released)
         this->ySpeed = 0;
+
+    if (event == InputEvent::SPACE_Pressed)
+        this->shooting = true;
+    else if (event == InputEvent::SPACE_Released)
+        this->shooting = false;
 }
 
 bool Player::isDead()

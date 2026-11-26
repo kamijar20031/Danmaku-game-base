@@ -6,6 +6,8 @@ std::unordered_map<sf::Keyboard::Key, std::pair<InputEvent, InputEvent>> keyMapp
     {sf::Keyboard::A, {InputEvent::A_Pressed, InputEvent::A_Released}},
     {sf::Keyboard::S, {InputEvent::S_Pressed, InputEvent::S_Released}},
     {sf::Keyboard::D, {InputEvent::D_Pressed, InputEvent::D_Released}},
+    {sf::Keyboard::Space, {InputEvent::SPACE_Pressed, InputEvent::SPACE_Released}},
+    {sf::Keyboard::Enter, {InputEvent::ENTER_Pressed, InputEvent::ENTER_Released}},
 };
 
 void InputHandler::process(const sf::Event& event)

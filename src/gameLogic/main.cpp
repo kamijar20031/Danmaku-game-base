@@ -10,7 +10,7 @@ int main()
 
     sf::RenderWindow window(sf::VideoMode(APP_WIDTH, APP_HEIGHT), "Bootleg Project");
     window.setVerticalSyncEnabled(true);
-    Game mainGameManager(&window);
+    Game mainGameManager(window);
     
     while (window.isOpen())
     {

@@ -12,7 +12,14 @@ enum class InputEvent
     S_Released,
     D_Released,
 
+    ENTER_Pressed,
+    ENTER_Released,
+    SPACE_Pressed,
+    SPACE_Released,
+
     ESC_Pressed,
+    
+
 };
 
 #endif
