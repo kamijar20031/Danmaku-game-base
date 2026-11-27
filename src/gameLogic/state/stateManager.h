@@ -30,7 +30,16 @@ public:
     }
     void render(sf::RenderWindow& window)
     {
-        if (!states.empty()) states.back()->render(window);
+        if (!states.empty()) 
+        {
+            int firstVisible = states.size() - 1;
+            while (firstVisible>0 && states[firstVisible]->isTransparent())
+                firstVisible--;
+            for (int i = firstVisible; i< states.size(); i++)
+                states[i]->render(window);
+
+        }
+
     }
 
     void pushState(std::unique_ptr<IGameState> state)

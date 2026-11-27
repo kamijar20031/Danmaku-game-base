@@ -15,6 +15,7 @@ class PauseState : public IGameState
         void onInputEvent(InputEvent event);
         void update(float dt);
         void render(sf::RenderWindow& window);
+        bool isTransparent() { return true; }
 };
 
 #endif
