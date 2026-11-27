@@ -25,5 +25,11 @@ void GameStateManager::onRequestChangeEvent(GameStateTypeCommand cmd)
             pushState(GameStateFactory::create(GameStateType::MainMenu, requestHandler));
             break;
         }
+        case GameStateTypeCommand::Restart:
+        {
+            popState();
+            pushState(GameStateFactory::create(GameStateType::Stage, requestHandler));
+            break;
+        }
     }
 }

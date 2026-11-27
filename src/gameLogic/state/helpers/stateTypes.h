@@ -7,7 +7,8 @@ enum class GameStateTypeCommand
     StartStage,
     Pause,
     Unpause,
-    GameOver
+    GameOver,
+    Restart
 };
 
 enum class GameStateType
