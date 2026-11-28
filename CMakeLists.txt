@@ -29,6 +29,13 @@ target_include_directories(danmaku PRIVATE
     ${CMAKE_SOURCE_DIR}/src/gameLogic/state
     ${CMAKE_SOURCE_DIR}/src/gameLogic/state/helpers
     ${CMAKE_SOURCE_DIR}/src/gameLogic/state/actualStates
+    ${CMAKE_SOURCE_DIR}/src/renderer
+    ${CMAKE_SOURCE_DIR}/src/renderer/ui
+    ${CMAKE_SOURCE_DIR}/src/renderer/ui/elements
+    ${CMAKE_SOURCE_DIR}/src/renderer/ui/elements/abstract
+    ${CMAKE_SOURCE_DIR}/src/renderer/ui/elements/components
+    ${CMAKE_SOURCE_DIR}/src/renderer/ui/elements/components/Menu
+
 )
 
 target_link_libraries(danmaku

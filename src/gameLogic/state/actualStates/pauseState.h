@@ -3,12 +3,17 @@
 
 #include "gameState.h"
 #include "hud.h"
-extern HUDManager HUDTextures;
+#include "MenuOption.h"
+#include "MenuStateModel.h"
+#include "MenuFactory.h"
+
 class PauseState : public IGameState
 {
     int selection = 0;
+    std::vector<MenuOption> options;
+    std::unique_ptr<MenuStateModel> menuModel;
     public:
-        using IGameState::IGameState;
+        PauseState(StateRequestHandler& handler);
         void incrementSelection();
         void decrementSelection();
         void processPauseSelection();

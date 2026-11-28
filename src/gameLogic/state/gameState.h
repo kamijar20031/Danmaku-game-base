@@ -4,11 +4,13 @@
 #include "inputEvent.h"
 #include "constants.h"
 #include "stateRequestHandler.h"
+#include "renderManager.h"
 
 class IGameState
 {
     protected:
         StateRequestHandler& handler;
+        UIScreen screen;
     public:
         IGameState(StateRequestHandler& handler) : handler(handler) {}
         virtual ~IGameState() = default;
